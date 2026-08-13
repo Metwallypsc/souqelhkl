@@ -6,7 +6,12 @@ declare module "lucide-react" {
   export const ClipboardCheck: LucideIcon;
   export const Leaf: LucideIcon;
   export const PackageCheck: LucideIcon;
+  export const Package: LucideIcon;
   export const Search: LucideIcon;
   export const ShoppingCart: LucideIcon;
   export const Store: LucideIcon;
+  export const ShieldCheck: LucideIcon;
+  export const ClipboardList: LucideIcon;
+  export const Settings: LucideIcon;
+  export const Home: LucideIcon;
 }
