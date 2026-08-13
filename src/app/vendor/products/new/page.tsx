@@ -1,8 +1,6 @@
-import dynamic from "next/dynamic";
 import { SiteHeader } from "@/components/site-header";
 import prisma from "@/lib/prisma";
-
-const VendorProductForm = dynamic(() => import("@/components/vendor-product-form"), { ssr: false });
+import VendorProductForm from "@/components/vendor-product-form";
 
 export default async function NewVendorProductPage() {
   const products = await prisma.product.findMany({ select: { id: true, nameAr: true }, orderBy: { createdAt: "desc" } });
