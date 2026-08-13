@@ -4,7 +4,8 @@ import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import authOptions from "@/lib/auth";
 
-export default async function EditVendorProductPage({ params }: { params: { id: string } }) {
+export default async function EditVendorProductPage(context: any) {
+  const { params } = context as { params: { id: string } };
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) {
     return (
