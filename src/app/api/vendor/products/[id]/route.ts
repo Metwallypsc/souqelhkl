@@ -3,7 +3,8 @@ import { getServerSession } from "next-auth/next";
 import authOptions from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, context: any) {
+  const { params } = context as { params: { id: string } };
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
@@ -17,7 +18,8 @@ export async function GET(request: Request, { params }: { params: { id: string }
   return NextResponse.json({ ok: true, listing });
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, context: any) {
+  const { params } = context as { params: { id: string } };
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
@@ -51,7 +53,8 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, context: any) {
+  const { params } = context as { params: { id: string } };
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
