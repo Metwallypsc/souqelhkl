@@ -6,8 +6,8 @@ export function SiteHeader() {
     <header className="border-b border-field-100 bg-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
         <Link className="flex items-center gap-3" href="/">
-          <div className="flex h-11 w-11 items-center justify-center rounded-md bg-field-700 text-white">
-            <Leaf size={24} />
+          <div className="flex h-11 w-11 items-center justify-center rounded-md bg-field-700 text-white overflow-hidden">
+            <img src="/logo-64.png" alt="سوق الحقل" className="h-9 w-9 object-contain" />
           </div>
           <div>
             <p className="text-xl font-bold leading-6">سوق الحقل</p>
