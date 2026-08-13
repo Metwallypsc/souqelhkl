@@ -19,6 +19,7 @@ export function SiteHeader() {
           <Link href="/categories">التصنيفات</Link>
           <Link href="/about">عن سوق الحقل</Link>
           <Link href="/register">تسجيل</Link>
+          <Link href="/auth/signin">تسجيل دخول</Link>
           <a href="https://wa.me/201000000000">واتساب</a>
         </nav>
         <div className="flex items-center gap-2">
