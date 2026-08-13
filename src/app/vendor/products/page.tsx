@@ -5,7 +5,7 @@ import authOptions from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 export default async function VendorProductsPage() {
-  const session = await getServerSession(authOptions as any);
+  const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) {
     return (
       <main className="min-h-screen bg-[#f7faf4] text-[#182414]">

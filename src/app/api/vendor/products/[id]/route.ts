@@ -4,7 +4,7 @@ import authOptions from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions as any);
+  const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
   const vendorUser = await prisma.vendorUser.findUnique({ where: { userId: session.user.id } });
@@ -18,7 +18,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
 }
 
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions as any);
+  const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
   const vendorUser = await prisma.vendorUser.findUnique({ where: { userId: session.user.id } });
@@ -52,7 +52,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 }
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions as any);
+  const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
   const vendorUser = await prisma.vendorUser.findUnique({ where: { userId: session.user.id } });

@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth/next";
 import authOptions from "@/lib/auth";
 
 export default async function EditVendorProductPage({ params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions as any);
+  const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) {
     return (
       <main className="min-h-screen bg-[#f7faf4] text-[#182414]">
