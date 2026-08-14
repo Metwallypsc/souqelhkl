@@ -35,6 +35,11 @@ async function deleteUser(formData: FormData) {
   if (session?.user?.id === userId) {
     throw new Error("لا يمكن حذف الحساب الذي تستخدمه حالياً");
   }
+  // prevent deleting if user has orders
+  const ordersCount = await prisma.order.count({ where: { customerId: userId } });
+  if (ordersCount > 0) {
+    throw new Error("لا يمكن حذف المستخدم لأنه لديه طلبات مرتبطة");
+  }
   await prisma.user.delete({ where: { id: userId } });
   revalidatePath("/admin/users");
 }
