@@ -34,7 +34,6 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="mt-4 flex items-center justify-between gap-3">
         <div>
           <p className="text-lg font-extrabold">{product.priceEgp} جنيه</p>
-          {product.oldPrice && <p className="text-sm text-gray-400 line-through">{product.oldPrice} جنيه</p>}
         </div>
         <button
           disabled={!product.available}

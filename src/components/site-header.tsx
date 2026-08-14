@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search, ShoppingCart, User, Truck } from "lucide-react";
+import { Search, ShoppingCart } from "lucide-react";
 
 export function SiteHeader() {
   return (
@@ -33,12 +33,12 @@ export function SiteHeader() {
         {/* Right links */}
         <div className="ml-4 flex items-center gap-4 text-sm font-semibold text-[#40533b]">
           <Link href="/auth/signin" className="flex items-center gap-2">
-            <User size={18} />
+            <span className="text-xl">👤</span>
             <span className="hidden sm:inline">حسابي</span>
           </Link>
 
           <Link href="/orders" className="hidden items-center gap-2 sm:flex">
-            <Truck size={18} />
+            <span className="text-xl">🚚</span>
             <span>طلباتي</span>
           </Link>
 

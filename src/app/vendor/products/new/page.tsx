@@ -11,7 +11,7 @@ export default async function NewVendorProductPage() {
       <SiteHeader />
       <section className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
         <h1 className="text-2xl font-black mb-4">إضافة منتج جديد</h1>
-        <VendorProductForm productOptions={productOptions} onSaved={() => { window.location.href = '/vendor/products'; }} />
+        <VendorProductForm productOptions={productOptions} />
       </section>
     </main>
   );

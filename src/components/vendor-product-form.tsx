@@ -44,7 +44,12 @@ export default function VendorProductForm({ initial, onSaved, productOptions = [
 
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || "Error saving");
-      onSaved?.(json.listing);
+      if (onSaved) {
+        onSaved(json.listing);
+      } else {
+        // default behavior for client-only usage: redirect to vendor products list
+        window.location.href = "/vendor/products";
+      }
     } catch (err: any) {
       setError(err.message || "حدث خطأ");
     } finally {
