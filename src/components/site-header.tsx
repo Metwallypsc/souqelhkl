@@ -1,44 +1,74 @@
 import Link from "next/link";
-import { Leaf, Search, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart, User, Truck } from "lucide-react";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-field-100 bg-white">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link className="flex items-center gap-3" href="/">
-          <div className="flex h-11 w-11 items-center justify-center rounded-md bg-field-700 text-white overflow-hidden">
-            <img src="/logo-64.png" alt="سوق الحقل" className="h-9 w-9 object-contain" />
-          </div>
-          <div>
-            <p className="text-xl font-bold leading-6">سوق الحقل</p>
-            <p className="text-sm text-field-700">كل احتياجات الزراعة في مكان واحد</p>
+    <header className="bg-white shadow-sm">
+      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3">
+          <img src="/logo-64.png" alt="سوق الحقل" className="h-10 w-10 object-contain" />
+          <div className="hidden flex-col leading-4 sm:flex">
+            <span className="text-lg font-extrabold">سوق الحقل</span>
+            <span className="text-xs text-field-700">كل احتياجات الزراعة</span>
           </div>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm font-semibold text-[#40533b] md:flex">
-          <Link href="/search">المنتجات</Link>
-          <Link href="/categories">التصنيفات</Link>
-          <Link href="/about">عن سوق الحقل</Link>
-          <Link href="/register">تسجيل</Link>
-          <Link href="/auth/signin">تسجيل دخول</Link>
-          <a href="https://wa.me/201000000000">واتساب</a>
-        </nav>
-        <div className="flex items-center gap-2">
-          <Link
-            aria-label="بحث"
-            className="hidden h-10 w-10 items-center justify-center rounded-md border border-field-100 text-field-700 sm:flex"
-            href="/search"
-          >
-            <Search size={18} />
+
+        {/* Search */}
+        <div className="flex flex-1 items-center">
+          <div className="mx-auto w-full max-w-3xl">
+            <form action="/search" className="relative">
+              <input
+                name="q"
+                placeholder="ابحث عن بذور، شتلات، تربة، أدوات..."
+                className="w-full rounded-md border border-field-100 bg-white py-3 pr-4 pl-12 text-sm shadow-[0_1px_2px_rgba(0,0,0,0.04)] focus:border-field-700 focus:outline-none"
+              />
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-field-700">
+                <Search size={18} />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        {/* Right links */}
+        <div className="ml-4 flex items-center gap-4 text-sm font-semibold text-[#40533b]">
+          <Link href="/auth/signin" className="flex items-center gap-2">
+            <User size={18} />
+            <span className="hidden sm:inline">حسابي</span>
           </Link>
-          <Link
-            className="flex h-10 items-center gap-2 rounded-md bg-field-700 px-4 text-sm font-bold text-white"
-            href="/cart"
-          >
+
+          <Link href="/orders" className="hidden items-center gap-2 sm:flex">
+            <Truck size={18} />
+            <span>طلباتي</span>
+          </Link>
+
+          <Link href="/cart" className="relative flex items-center gap-2 rounded-md bg-field-700 px-3 py-2 text-sm font-bold text-white">
             <ShoppingCart size={18} />
-            السلة
+            <span className="hidden sm:inline">السلة</span>
+            <span className="absolute -top-2 -right-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs text-white">3</span>
           </Link>
         </div>
       </div>
+
+      {/* Secondary nav - categories placeholder */}
+      <nav className="border-t border-field-100 bg-[#f8fbf6]">
+        <div className="mx-auto flex max-w-7xl items-center gap-4 overflow-x-auto px-4 py-2 sm:px-6">
+          {[
+            "البذور",
+            "الشتلات",
+            "الأسمدة",
+            "الآلات",
+            "المبيدات",
+            "التحضيرات",
+            "الري",
+            "الأدوات"
+          ].map((c) => (
+            <Link key={c} href={`/search?category=${encodeURIComponent(c)}`} className="whitespace-nowrap rounded-md px-3 py-1 text-sm font-semibold text-[#40533b] hover:bg-white">
+              {c}
+            </Link>
+          ))}
+        </div>
+      </nav>
     </header>
   );
 }
