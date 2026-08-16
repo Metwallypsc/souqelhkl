@@ -4,14 +4,13 @@ import authOptions from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
 export async function GET(request: Request, context: any) {
-  const { params } = context as { params: { id: string } };
+  const { params } = context as { params: Promise<{ id: string }> };
+  const { id } = await params;
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
   const vendorUser = await prisma.vendorUser.findUnique({ where: { userId: session.user.id } });
   if (!vendorUser) return NextResponse.json({ ok: false, message: "User is not a vendor" }, { status: 403 });
-
-  const id = params.id;
   const listing = await prisma.listing.findUnique({ where: { id } });
   if (!listing || listing.vendorId !== vendorUser.vendorId) return NextResponse.json({ ok: false, message: "Not found" }, { status: 404 });
 
@@ -19,14 +18,13 @@ export async function GET(request: Request, context: any) {
 }
 
 export async function PUT(request: Request, context: any) {
-  const { params } = context as { params: { id: string } };
+  const { params } = context as { params: Promise<{ id: string }> };
+  const { id } = await params;
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
   const vendorUser = await prisma.vendorUser.findUnique({ where: { userId: session.user.id } });
   if (!vendorUser) return NextResponse.json({ ok: false, message: "User is not a vendor" }, { status: 403 });
-
-  const id = params.id;
   const listing = await prisma.listing.findUnique({ where: { id } });
   if (!listing || listing.vendorId !== vendorUser.vendorId) return NextResponse.json({ ok: false, message: "Not found" }, { status: 404 });
 
@@ -54,14 +52,13 @@ export async function PUT(request: Request, context: any) {
 }
 
 export async function DELETE(request: Request, context: any) {
-  const { params } = context as { params: { id: string } };
+  const { params } = context as { params: Promise<{ id: string }> };
+  const { id } = await params;
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id) return NextResponse.json({ ok: false, message: "Not authenticated" }, { status: 401 });
 
   const vendorUser = await prisma.vendorUser.findUnique({ where: { userId: session.user.id } });
   if (!vendorUser) return NextResponse.json({ ok: false, message: "User is not a vendor" }, { status: 403 });
-
-  const id = params.id;
   const listing = await prisma.listing.findUnique({ where: { id } });
   if (!listing || listing.vendorId !== vendorUser.vendorId) return NextResponse.json({ ok: false, message: "Not found" }, { status: 404 });
 

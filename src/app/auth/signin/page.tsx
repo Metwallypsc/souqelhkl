@@ -45,7 +45,7 @@ export default function SignInPage() {
         <form className="grid gap-4" onSubmit={handleSubmit}>
           {error ? <div className="rounded-md bg-[#fff8dc] p-3 text-sm font-bold text-[#4d4215]">{error}</div> : null}
           <label className="grid gap-2 text-sm font-bold">
-            رقم الموبايل أو البريد
+            رقم الموبايل أو البريد أو اسم المستخدم
             <input className="rounded-md border border-field-100 px-3 py-3 text-sm outline-field-500" value={identifier} onChange={(e) => setIdentifier(e.target.value)} />
           </label>
           <label className="grid gap-2 text-sm font-bold">
@@ -56,6 +56,15 @@ export default function SignInPage() {
             {loading ? "جاري تسجيل الدخول..." : "تسجيل دخول"}
           </button>
         </form>
+
+        <div className="mt-5 grid gap-3 text-sm">
+          <a href="/register" className="rounded-md border border-field-100 bg-white px-4 py-3 text-center font-bold text-[#182414]">
+            إنشاء حساب جديد للعميل
+          </a>
+          <a href="/vendor/apply" className="rounded-md border border-field-100 bg-white px-4 py-3 text-center font-bold text-[#182414]">
+            طلب الانضمام كبائع
+          </a>
+        </div>
       </div>
     </main>
   );

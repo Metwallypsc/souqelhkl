@@ -4,13 +4,12 @@ import { getServerSession } from "next-auth/next";
 import authOptions from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-export default async function EditUserPage({ params }: { params: { id: string } }) {
+export default async function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id || session.user.role !== "ADMIN") {
     redirect("/auth/signin");
   }
-
-  const id = params.id;
   const user = await prisma.user.findUnique({ where: { id } });
   if (!user) return <div className="p-6">المستخدم غير موجود</div>;
 

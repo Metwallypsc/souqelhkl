@@ -1,8 +1,8 @@
 import type { NextAuthOptions } from "next-auth";
-import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import prisma from "./prisma";
+import { ensureSystemAdmin } from "./admin-credentials";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -16,14 +16,14 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
+        await ensureSystemAdmin();
         if (!credentials) return null;
         const identifier = (credentials.identifier || "").toString().trim();
         const password = (credentials.password || "").toString();
 
-        // find by phone or email
         const user = await prisma.user.findFirst({
           where: {
-            OR: [{ phone: identifier }, { email: identifier }]
+            OR: [{ phone: identifier }, { email: identifier }, { username: identifier }]
           }
         });
 
@@ -35,6 +35,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: user.id,
           name: user.name,
+          username: user.username ?? undefined,
           email: user.email ?? undefined,
           role: user.role
         } as any;

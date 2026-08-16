@@ -17,10 +17,26 @@ export default async function VendorProductsPage() {
 
   const vendorUser = await prisma.vendorUser.findUnique({ where: { userId: session.user.id } });
   if (!vendorUser) {
+    const pendingApplication = await prisma.vendorApplication.findFirst({
+      where: { userId: session.user.id, status: "PENDING" },
+      orderBy: { createdAt: "desc" }
+    });
+
     return (
       <main className="min-h-screen bg-[#f7faf4] text-[#182414]">
         <SiteHeader />
-        <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6">ليس لديك حساب بائع.</section>
+        <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+          {pendingApplication ? (
+            <div className="rounded-md border border-yellow-200 bg-yellow-50 p-6 text-yellow-900">
+              طلبك كبائع قيد المراجعة من الإدارة. سيتم تفعيل الحساب بعد الموافقة.
+            </div>
+          ) : (
+            <div className="rounded-md border border-field-100 bg-white p-6">
+              ليس لديك حساب بائع. يمكنك تقديم طلب الانضمام من
+              <a href="/vendor/apply" className="mx-1 font-bold text-field-700 underline">هنا</a>
+            </div>
+          )}
+        </section>
       </main>
     );
   }

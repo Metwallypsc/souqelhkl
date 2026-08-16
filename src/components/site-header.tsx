@@ -7,10 +7,10 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <img src="/logo-64.png" alt="سوق الحقل" className="h-10 w-10 object-contain" />
+          <img src="/logo-64.png" alt="سوق الحقل" className="h-14 w-14 object-contain drop-shadow-sm" />
           <div className="hidden flex-col leading-4 sm:flex">
-            <span className="text-lg font-extrabold">سوق الحقل</span>
-            <span className="text-xs text-field-700">كل احتياجات الزراعة</span>
+            <span className="text-lg font-extrabold tracking-tight text-[#1b2d1a]">سوق الحقل</span>
+            <span className="text-[11px] font-medium text-[#4d6f4d]">كل احتياجات الزراعة</span>
           </div>
         </Link>
 

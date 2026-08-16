@@ -2,15 +2,19 @@ module.exports = {
   apps: [
     {
       name: 'souq-el-hakl',
-      script: 'npm',
-      args: 'start',
+      script: 'npx',
+      args: 'next start -H 0.0.0.0 -p 3010',
+      cwd: __dirname,
       env: {
         NODE_ENV: 'production',
-        PORT: 3010,
+        PORT: '3010',
       },
       autorestart: true,
-      max_restarts: 10,
       restart_delay: 2000,
+      max_restarts: 10,
+      watch: false,
+      instances: 1,
+      exec_mode: 'fork',
     },
   ],
 };

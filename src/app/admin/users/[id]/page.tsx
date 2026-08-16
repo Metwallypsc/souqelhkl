@@ -44,13 +44,12 @@ async function deleteUser(formData: FormData) {
   revalidatePath("/admin/users");
 }
 
-export default async function AdminUserDetail({ params }: { params: { id: string } }) {
+export default async function AdminUserDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session: any = await getServerSession(authOptions as any);
   if (!session?.user?.id || session.user.role !== "ADMIN") {
     redirect("/auth/signin");
   }
-
-  const id = params.id;
   const user = await prisma.user.findUnique({ where: { id } });
   if (!user) return <div className="p-6">المستخدم غير موجود</div>;
 
@@ -105,7 +104,7 @@ export default async function AdminUserDetail({ params }: { params: { id: string
 
             <form action={deleteUser} method="post">
               <input type="hidden" name="userId" value={user.id} />
-              <button type="submit" className="rounded-md bg-red-600 px-4 py-2 text-sm font-bold text-white" onClick="return confirm('هل أنت متأكد من حذف المستخدم؟')">حذف المستخدم</button>
+              <button type="submit" className="rounded-md bg-red-600 px-4 py-2 text-sm font-bold text-white">حذف المستخدم</button>
             </form>
           </div>
         </div>

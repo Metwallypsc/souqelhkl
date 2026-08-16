@@ -5,11 +5,11 @@ import { reviewInstaPayPayment, updateOrderStatus, updateVendorOrderStatus } fro
 import { revalidatePath } from "next/cache";
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function AdminOrderDetailPage({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
 
   const order = await prisma.order.findUnique({
     where: { id },
